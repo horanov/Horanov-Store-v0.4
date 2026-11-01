@@ -1,0 +1,17 @@
+HORANOV STORE v0.4 — FIRST RUN
+
+1) NEW Cloudflare Worker + domain:
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\cloudflare\deploy-windows.ps1
+
+2) Check https://store.horanov.com/api/apps and /admin
+
+3) Publish a signed APK in a PUBLIC GitHub Release.
+   Get SHA256: (Get-FileHash 'D:\somewhere\my-app.apk' -Algorithm SHA256).Hash.ToLower()
+   Publish metadata using https://store.horanov.com/admin
+
+4) Expo Go 58:
+   npm install
+   npx expo start -c
+
+The app downloads files, NOT installs APKs automatically.
+Keep your old Worker until the new one is confirmed to work.

@@ -1,0 +1,57 @@
+HORANOV STORE v0.4.9 — UPDATE/PATCH FOR EXISTING v0.4
+=======================================================
+
+This ZIP IS NOT a new project. It contains only replacement files.
+Extract it OVER THE ROOT OF YOUR EXISTING v0.4 PROJECT, preserving folder paths:
+
+  App.tsx
+  app.json
+  src/theme.ts
+  src/components/BootScreen.tsx
+  cloudflare/src/page.ts
+  cloudflare/src/index.ts
+
+Do NOT delete or reset your current v0.4 project. This patch does NOT include or
+replace cloudflare/wrangler.jsonc, migrations, environment secrets, D1 bindings,
+app catalogs, or APK files. ADMIN_TOKEN remains the same.
+
+ANDROID (Windows 10 / Expo Go 58.0.5)
+  In the project root:
+    npx expo start -c
+  Scan the QR code with Expo Go and verify the catalog, download progress,
+  SHA-256 check, favorites, modal and bottom tab bar. No new npm packages.
+
+CLOUDFLARE (deploy only the changed Worker code; no DB recreation)
+  In the existing project's cloudflare directory:
+    cd cloudflare
+    npm run deploy
+
+  Verify:
+    https://store.horanov.com/
+    https://store.horanov.com/admin
+    https://store.horanov.com/api/apps
+    https://store.horanov.com/api/health
+
+  DO NOT run deploy-windows.ps1 again for a design-only patch. That bootstrap
+  script is designed for first-time setup and can prompt to regenerate secrets.
+
+UNCHANGED
+- Cloudflare domain: https://store.horanov.com
+- Hono API and D1 schema: unchanged
+- GitHub Releases APK URLs and SHA-256 validation: unchanged
+- Expo AsyncStorage key: @horanov-store:v04 (favorites and downloads preserved)
+- The app is still an Expo Go catalog/download manager, NOT a native installer.
+
+NETWORK ISSUE
+If store.horanov.com resolves on mobile internet but NOT on Wi-Fi, this is
+usually DNS/resolver behavior on that network. UI code cannot guarantee a fix.
+Keep troubleshooting the Wi-Fi DNS/hostname independently; no router changes
+are part of this patch.
+
+TESTING
+- TypeScript/TSX syntactic transpilation: passed
+- Webpage JavaScript syntax validation: passed
+- Public/admin responsive browser previews: passed at 390px and 1440px
+- Full Android app runtime and live Cloudflare deploy: NOT tested here
+
+Version: 0.4.9

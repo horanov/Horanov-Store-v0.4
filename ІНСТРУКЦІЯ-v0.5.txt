@@ -1,0 +1,65 @@
+HORANOV STORE v0.5.0 — NATIVE APK INSTALLER PATCH (OVER EXISTING v0.4.9)
+===============================================================================
+
+ЦЕ НЕ НОВИЙ ПРОЄКТ. Розпакуй ZIP поверх поточного Horanov Store v0.4.9,
+зі збереженням структури папок. Перед заміною зроби резервну копію.
+
+Файли в патчі:
+  App.tsx
+  app.json
+  eas.json
+  src/nativeInstaller.ts
+  modules/horanov-installer/expo-module.config.json
+  modules/horanov-installer/android/build.gradle
+  modules/horanov-installer/android/src/main/AndroidManifest.xml
+  modules/horanov-installer/android/src/main/res/xml/horanov_apk_paths.xml
+  modules/horanov-installer/android/src/main/java/com/horanov/installer/HoranovInstallerModule.kt
+
+Cloudflare взагалі не змінюється. Не потрібно пересоздавати D1, Worker чи домен.
+Той самий каталог: https://store.horanov.com
+Ті самі GitHub Releases, SHA-256 та локальне сховище AsyncStorage.
+
+ВАЖЛИВО: Expo Go НЕ ВМІЄ встановлювати APK. У Expo Go новий інтерфейс працює
+як раніше (завантаження + поширення), але кнопка встановлення з'явиться ЛИШЕ
+в окремій Android-збірці з нашим Kotlin-модулем.
+
+WINDOWS 10 — ПОКРОКОВО
+1. У корені поточного проєкту:
+   npm install
+   npx expo install --check
+
+2. Увійти в EAS (лише перший раз):
+   npx eas-cli login
+   npx eas-cli init
+
+3. Запустити хмарну збірку APK:
+   npx eas-cli build -p android --profile preview
+
+4. Якщо запитає про Android keystore: обрати автоматичне створення або
+   існуючий ключ, якщо Android-пакет уже поширювався. ЗБЕРЕЖИ КЛЮЧ.
+   Для оновлення існуючого APK потрібен той самий ключ і applicationId.
+
+5. Встановити отриманий APK за посиланням EAS на телефон. Дозволити
+   встановлення з браузера, якщо Android попросить.
+
+6. У Horanov Store: обрати реальний реліз -> «Завантажити й встановити».
+   Якщо Android попросить дозвіл на встановлення з Horanov Store:
+   відкрити налаштування, увімкнути дозвіл, повернутися й натиснути
+   «Встановити» ще раз. Android відкриє стандартний системний діалог.
+
+ЗАХИСТ
+- APK береться з твого Cloudflare-каталогу (URL GitHub Releases).
+- SHA-256 перевіряється після завантаження і ще раз перед установкою.
+- Нативний модуль обмежує доступ до файлів у приватній теці додатка.
+- FileProvider відкриває тільки тимчасову копію APK для системного інсталятора.
+- Немає фонових/прихованих установок. Користувач сам погоджується з Android.
+- На деяких версіях Android додаткові обмеження можуть впливати на встановлення.
+
+НЕ ПЛУТАТИ З МЕНЕДЖЕРОМ ВСТАНОВЛЕНИХ ПРОГРАМ
+v0.5 ще НЕ сканує список установлених програм, не встановлює APK тихо,
+не підтримує автоматичні оновлення без діалогів. Це майбутній етап.
+
+ТЕСТУВАННЯ
+Перевірено структуру файлів, типові API SDK 58 та статичний синтаксис.
+EAS cloud build і роботу системного інсталятора на реальному телефоні тут
+не запускали. Якщо EAS/Gradle поверне помилку, надішли журнал — виправимо.

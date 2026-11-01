@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "horanov-store-v04",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "routes": [
+    { "pattern": "store.horanov.com", "custom_domain": true }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "horanov-store-v04-db",
+      "database_id": "327b83f0-8c9c-4df7-bf70-3d26444d4f20",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

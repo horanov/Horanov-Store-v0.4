@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Horanov Store",
+    "slug": "horanov-store",
+    "scheme": "horanovstore",
+    "version": "0.5.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F8F8FC",
+    "android": {
+      "package": "com.horanov.store",
+      "versionCode": 5,
+      "permissions": [
+        "REQUEST_INSTALL_PACKAGES"
+      ]
+    },
+    "newArchEnabled": true,
+    "extra": {
+      "eas": {
+        "projectId": "ce1961f7-79a9-4d7a-b62b-d8eaa06e833a"
+      }
+    },
+    "owner": "horanov71"
+  }
+}
